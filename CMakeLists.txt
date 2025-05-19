@@ -79,7 +79,7 @@ option(ACADOS_DEBUG_SQP_PRINT_QPS_TO_FILE "Print QP inputs and outputs to file i
 
 # Additional targets
 option(ACADOS_UNIT_TESTS "Compile Unit tests" OFF)
-option(ACADOS_EXAMPLES "Compile Examples" OFF)
+option(ACADOS_EXAMPLES "Compile Examples" ON)
 option(ACADOS_LINT "Compile Lint" OFF)
 # External libs
 option(ACADOS_WITH_QPOASES "qpOASES solver" OFF)
@@ -88,10 +88,10 @@ option(ACADOS_WITH_HPMPC "HPMPC solver" OFF)
 option(ACADOS_WITH_QORE "QORE solver" OFF)
 option(ACADOS_WITH_OOQP "OOQP solver" OFF)
 option(ACADOS_WITH_QPDUNES "qpDUNES solver" OFF)
-option(ACADOS_WITH_OSQP "OSQP solver" OFF)
+option(ACADOS_WITH_OSQP "OSQP solver" ON)
 # Interfaces
 option(ACADOS_OCTAVE "Octave Interface tests" OFF)
-option(ACADOS_PYTHON "Python Interface tests" OFF)
+option(ACADOS_PYTHON "Python Interface tests" ON)
 # Options to use libraries found via find_package
 option(ACADOS_WITH_SYSTEM_BLASFEO "If ON, use blasfeo found via find_package(blasfeo) instead of compiling it" OFF)
 mark_as_advanced(ACADOS_WITH_SYSTEM_BLASFEO)

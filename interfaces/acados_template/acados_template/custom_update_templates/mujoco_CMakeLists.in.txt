@@ -397,7 +397,16 @@ if(${BUILD_ACADOS_SIM_SOLVER_LIB})
     install(TARGETS ${LIB_ACADOS_SIM_SOLVER} DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif(${BUILD_ACADOS_SIM_SOLVER_LIB})
 {%- endif %}
-
+if(${BUILD_ACADOS_OCP_SOLVER_LIB})
+  install(CODE "message(STATUS \"Installing ACADOS OCP solver shared libraries from ${CMAKE_CURRENT_SOURCE_DIR}/build/lib to ${ACADOS_LIB_PATH}\")")
+  install(
+    DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build/lib/"   # or CMAKE_CURRENT_BINARY_DIR if generated there
+    DESTINATION ${ACADOS_LIB_PATH}                                 # relative to ${CMAKE_INSTALL_PREFIX}
+    FILES_MATCHING
+      PATTERN "*.so*"
+      PATTERN "*.dylib"  # if you also want macOS .dylib
+  )
+endif(${BUILD_ACADOS_OCP_SOLVER_LIB})
 # unset options for clean cmake cache on subsequent cmake runs
   {%- if problem_class != "SIM" %}
 unset(BUILD_ACADOS_SOLVER_LIB CACHE)
@@ -408,8 +417,3 @@ unset(BUILD_EXAMPLE CACHE)
 unset(BUILD_SIM_EXAMPLE CACHE)
 unset(BUILD_ACADOS_SIM_SOLVER_LIB CACHE)
 {%- endif %}
-if(${BUILD_ACADOS_SIM_SOLVER_LIB})
-install(CODE
-  "file(COPY \"lib/\" DESTINATION \"${CMAKE_INSTALL_PREFIX}/lib\")"
-)
-endif(${BUILD_ACADOS_SIM_SOLVER_LIB})
