@@ -1207,6 +1207,8 @@ class AcadosOcp:
 
         template_list = self.__get_template_list(cmake_builder=cmake_builder)
 
+
+
         # Render templates
         for tup in template_list:
             output_dir = self.code_export_directory if len(tup) <= 2 else tup[2]
@@ -1215,8 +1217,10 @@ class AcadosOcp:
         # Custom templates
         acados_template_path = os.path.dirname(os.path.abspath(__file__))
         custom_template_glob = os.path.join(acados_template_path, 'custom_update_templates', '*')
+
         for tup in self.solver_options.custom_templates:
             render_template(tup[0], tup[1], self.code_export_directory, json_path, template_glob=custom_template_glob)
+
         return
 
 

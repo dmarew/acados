@@ -146,6 +146,13 @@ class AcadosOcpOptions:
         self.__num_threads_in_batch_solve: int = 1
         self.__with_batch_functionality: bool = False
 
+        self.__mujoco_model_path = None
+        self.__mujoco_model_name = None
+        self.__mujoco_model_dir = None
+        self.__mujoco_model_name = None
+
+        self.__mujoco_fd_eps = 0.0001
+
     @property
     def qp_solver(self):
         """QP solver to be used in the NLP solver.
@@ -259,7 +266,51 @@ class AcadosOcpOptions:
         """
         return self.__custom_update_copy
 
+    @property
+    def mujoco_model_path(self):
+        """
+        Path to the mujoco model file.
+        Default: None
+        """
+        return self.__mujoco_model_path
+    @mujoco_model_path.setter
+    def mujoco_model_path(self, value):
+        """
+        Path to the mujoco model file.
+        Default: None
+        """
+        if not isinstance(value, str):
+            raise TypeError("mujoco_model_path must be a string.")
+        self.__mujoco_model_path = value
+        if not os.path.exists(value):
+            raise ValueError(f"mujoco_model_path does not exist: {value}")
+        if not os.path.isfile(value):
+            raise ValueError(f"mujoco_model_path is not a file: {value}")
+        if not value.endswith('.xml'):
+            raise ValueError(f"mujoco_model_path must be an xml file: {value}")
+        self.__mujoco_model_path = value
+        self.__mujoco_model_name = os.path.basename(value)
+        self.__mujoco_model_dir = os.path.dirname(value)
+    @property
+    def mujoco_fd_eps(self):
+        """
+        MuJoCo forward dynamics epsilon.
+        Default: None
+        """
+        return self.__mujoco_fd_eps
 
+    @mujoco_fd_eps.setter
+    def mujoco_fd_eps(self, value):
+        """
+        MuJoCo forward dynamics epsilon.
+        Default: None
+        """
+        if not isinstance(value, (int, float)):
+            raise TypeError("mujoco_fd_eps must be a number.")
+        if value <= 0:
+            raise ValueError("mujoco_fd_eps must be positive.")
+        self.__mujoco_fd_eps = value
+    
     @property
     def hpipm_mode(self):
         """

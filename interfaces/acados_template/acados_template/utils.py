@@ -292,6 +292,11 @@ def render_template(in_file, out_file, output_dir, json_path, template_glob=None
     with set_directory(output_dir):
         tera_path = get_tera()
 
+        # load json
+        with open(json_path, 'r') as f:
+            json_dict = json.load(f)
+        
+
         # call tera as system cmd
         os_cmd = f"{tera_path} '{template_glob}' '{in_file}' '{json_path}' '{out_file}'"
         # Windows cmd.exe can not cope with '...', so use "..." instead:
