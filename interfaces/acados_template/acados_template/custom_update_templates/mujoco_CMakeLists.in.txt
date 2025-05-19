@@ -196,7 +196,6 @@ macro(FindOrFetch)
     message(CHECK_PASS "found")
   endif()
 endmacro()
-set(MODEL_XML_PATH "" CACHE STRING "Full path to your MuJoCo XML model")
 set(MODEL_XML_PATH "{{ solver_options.mujoco_model_path }}" CACHE STRING "Full path to your MuJoCo XML model")
 set(FD_EPS {{ solver_options.mujoco_fd_eps }} CACHE STRING "Finite Difference eps")
 
